@@ -1,18 +1,18 @@
 import java.awt.*;
 
-public abstract class car { //Abstract pga trimfactor och variabler som inte är samma
-    private int nrDoors; // Number of doors on the car
-    private double enginePower; // Engine power of the car
-    private double currentSpeed; // The current speed of the car
-    private Color color; // Color of the car
-    private String modelName; // The car model name
-    //Sätter dessa som private för
-    // att man inte ska kunna överskrida
-    // dem utan man tvingas att använda
-    // metoder såsom gas/brake etc
+public abstract class car {
+    // PRIVATE: Dessa kan bara läsas/ändras inuti denna klass.
+    private int nrDoors;
+    private double enginePower;
+    private Color color;
+    private String modelName;
 
 
-    //setter, istället för self i python har vi this
+    //Protected för att låta subklasserna ändra denna.
+    protected double currentSpeed; // The current speed of the car
+
+
+    //Konstruktor, körs när en subklass skapas
     public car(int nrDoors, double enginePower, double currentSpeed, Color color, String modelName) {
         this.nrDoors = nrDoors;
         this.enginePower = enginePower;
@@ -20,33 +20,49 @@ public abstract class car { //Abstract pga trimfactor och variabler som inte är
         this.color = color;
         this.modelName = modelName;
     }
-    //getters
+    //getter för nrDoors
     public int getNrDoors(){
         return this.nrDoors;
     }
-
+    //getter för enginePower
     public double getEnginePower() {
         return this.enginePower;
     }
+    //getter för current speed
     public double getCurrentSpeed(){
         return this.currentSpeed;
     }
+    //getter för color
     public Color getColor(){
         return this.color;
     }
+    //setter för color
     public void setColor(Color clr){
         this.color = clr;
     }
-    public void startEngine(){
-        this.currentSpeed = 0.1;
-    }
+
+    //setter för stop engine
     public void stopEngine(){
         this.currentSpeed = 0;
     }
-    //Abstrakt metod för vi låter subklasserna skriva sin egen version
-    public abstract double speedFactor();
+    //startengine och stop engine är likadan för både saab och volvo
+    public void startEngine(){
+        currentSpeed = 0.1;
+    }
 
+    //Vi säger att alla bilar har en speedfactor och kan gasa/bromsa
+    //Men vi lämnar uträkninen åt klassen själv
+    public abstract double speedFactor();
     public abstract void incrementSpeed(double amount);
     public abstract void decrementSpeed(double amount);
 
+    //Gas och Brake är samma för båda
+    public void gas(double amount){
+        incrementSpeed(amount);
+    }
+    public void brake(double amount){
+        decrementSpeed(amount);
+    }
 }
+
+
