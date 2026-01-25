@@ -6,19 +6,16 @@ public abstract class car {
     private double enginePower;
     private Color color;
     private String modelName;
-
-
-    //Protected för att låta subklasserna ändra denna.
-    protected double currentSpeed; // The current speed of the car
+    public double currentSpeed; // The current speed of the car
 
 
     //Konstruktor, körs när en subklass skapas
-    public car(int nrDoors, double enginePower, double currentSpeed, Color color, String modelName) {
+    public car(int nrDoors, double enginePower, Color color, String modelName) {
         this.nrDoors = nrDoors;
         this.enginePower = enginePower;
-        this.currentSpeed = currentSpeed;
         this.color = color;
         this.modelName = modelName;
+        this.stopEngine();
     }
     //getter för nrDoors
     public int getNrDoors(){
