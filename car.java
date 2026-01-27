@@ -1,12 +1,43 @@
 import java.awt.*;
 
-public abstract class car {
+public abstract class car implements Movable{
     // PRIVATE: Dessa kan bara läsas/ändras inuti denna klass.
     private int nrDoors;
     private double enginePower;
     private Color color;
     private String modelName;
     public double currentSpeed; // The current speed of the car
+
+    private double x = 0;
+    private double y = 0;
+    private int direction = 0; // 0=Nord, 1=Öst, 2=Syd, 3=Väst
+
+    @Override
+    public void move(){
+        if (direction == 0)  { y += 1; }
+        else if (direction == 1)  { x += 1; }
+        else if (direction == 2)  { y -= 1; }
+        else if (direction == 3)  { x -= 1; }
+    }
+
+    @Override
+    public void turnRight() {
+        switch (direction) {
+            case 0 -> direction = 1;
+            case 1 -> direction = 2;
+            case 2 -> direction = 3;
+            case 3 -> direction = 0;
+        }
+    }
+
+    public void turnLeft() {
+        switch (direction) {
+            case 0 -> direction = 3;
+            case 1 -> direction = 0;
+            case 2 -> direction = 1;
+            case 3 -> direction = 2;
+        }
+    }
 
 
     //Konstruktor, körs när en subklass skapas
