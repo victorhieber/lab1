@@ -86,10 +86,20 @@ public abstract class car implements Movable{
 
     //Gas och Brake är samma för båda
     public void gas(double amount){
+        if (amount >= 0 && amount <= 1) {
         incrementSpeed(amount);
+        }
+        else{
+            System.out.println("Felaktigt värde");
+        }
     }
     public void brake(double amount){
-        decrementSpeed(amount);
+        if (amount >= 0 && amount <= 1) {
+            decrementSpeed(amount);
+        }
+        else{
+            System.out.println("Felaktigt värde");
+        }
     }
 }
 

@@ -21,11 +21,11 @@ public class Saab95 extends car implements Movable{
 
     @Override
     public void incrementSpeed(double amount){
-        currentSpeed = getCurrentSpeed() + speedFactor() * amount;
+        currentSpeed = Math.min(getCurrentSpeed() + speedFactor() * amount, 1);
     }
 
     @Override
     public void decrementSpeed(double amount){
-        currentSpeed = getCurrentSpeed() - speedFactor() * amount;
+        currentSpeed = Math.max(getCurrentSpeed() - speedFactor() * amount, 0);
     }
 }
