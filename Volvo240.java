@@ -14,15 +14,4 @@ public class Volvo240 extends car {
         return getEnginePower() * 0.01 * trimFactor;
     }
 
-    @Override
-    public void incrementSpeed(double amount) {
-        // Volvons logik: får inte gå över motorstyrkan (Math.min)
-        currentSpeed = Math.min(getCurrentSpeed() + speedFactor() * amount, getEnginePower());
-    }
-
-    @Override
-    public void decrementSpeed(double amount) {
-        // Volvons logik: får inte gå under 0 (Math.max)
-        currentSpeed = Math.max(getCurrentSpeed() - speedFactor() * amount, 0);
-    }
 }

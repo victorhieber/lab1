@@ -85,8 +85,15 @@ public abstract class car implements Movable{
     //Vi säger att alla bilar har en speedfactor och kan gasa/bromsa
     //Men vi lämnar uträkninen åt klassen själv
     public abstract double speedFactor();
-    public abstract void incrementSpeed(double amount);
-    public abstract void decrementSpeed(double amount);
+
+    private void incrementSpeed(double amount) {
+        // Logiken är nu gemensam för ALLA bilar
+        currentSpeed = Math.min(getCurrentSpeed() + speedFactor() * amount, getEnginePower());
+    }
+
+    private void decrementSpeed(double amount) {
+        currentSpeed = Math.max(getCurrentSpeed() - speedFactor() * amount, 0);
+    }
 
     //Gas och Brake är samma för båda
     public void gas(double amount){
