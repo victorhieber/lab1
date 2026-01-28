@@ -15,14 +15,12 @@ public class Volvo240 extends car {
     }
 
     @Override
-    public void incrementSpeed(double amount) {
-        // Volvons logik: får inte gå över motorstyrkan (Math.min)
+    public void incrementSpeed(double amount){
         currentSpeed = Math.min(getCurrentSpeed() + speedFactor() * amount, getEnginePower());
     }
 
     @Override
-    public void decrementSpeed(double amount) {
-        // Volvons logik: får inte gå under 0 (Math.max)
-        currentSpeed = Math.max(getCurrentSpeed() - speedFactor() * amount, 0);
+    public void decrementSpeed(double amount){
+        currentSpeed = Math.max(getCurrentSpeed() - speedFactor() * amount,0);
     }
 }

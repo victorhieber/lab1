@@ -6,7 +6,7 @@ public abstract class car implements Movable{
     private double enginePower;
     private Color color;
     private String modelName;
-    public double currentSpeed; // The current speed of the car
+    protected double currentSpeed; // The current speed of the car
 
     private double x = 0;
     private double y = 0;
