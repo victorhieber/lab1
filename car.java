@@ -14,10 +14,10 @@ public abstract class car implements Movable{
 
     @Override
     public void move(){
-        if (direction == 0)  { y += 1; }
-        else if (direction == 1)  { x += 1; }
-        else if (direction == 2)  { y -= 1; }
-        else if (direction == 3)  { x -= 1; }
+        if (direction == 0)  { y += getCurrentSpeed(); }
+        else if (direction == 1)  { x += getCurrentSpeed(); }
+        else if (direction == 2)  { y -= getCurrentSpeed(); }
+        else if (direction == 3)  { x -= getCurrentSpeed(); }
     }
 
     @Override
@@ -67,6 +67,10 @@ public abstract class car implements Movable{
     //setter för color
     public void setColor(Color clr){
         this.color = clr;
+    }
+
+    public String getModelName() {
+        return this.modelName;
     }
 
     //setter för stop engine
