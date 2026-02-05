@@ -1,6 +1,20 @@
 import java.awt.*;
 
 public class Cartransport extends Truck {
+
+    private final Ramp ramp = new Ramp();
+
+    public void lowerramp(){
+        if (getCurrentSpeed() == 0){
+            ramp.lower();
+        }
+    }
+    public void raiseramp(){
+        if (getCurrentSpeed() == 0){
+            ramp.raise();
+        }
+    }
+
     public Cartransport(){
         super(2,400, Color.black, "Car transport");
     }
