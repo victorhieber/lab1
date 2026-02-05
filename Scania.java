@@ -11,19 +11,20 @@ public class Scania extends Vehicle{
     public double getRampAngle(){
         return rampAngle;
     }
-
+    /*
     public void raiseRamp(double degrees){
         if (getCurrentSpeed() != 0) return;
         if (degrees < 0) return;
         rampAngle = Math.min(rampAngle + degrees, 70);
     }
-
+     */
+    /*
     public void lowerRamp(double degrees){
         if (getCurrentSpeed() != 0) return;
         if (degrees < 0) return;
         rampAngle = Math.max(rampAngle - degrees, 0);
     }
-
+    */
     @Override
     public void gas(double amount){
         if (getRampAngle() > 0) return;
@@ -37,9 +38,10 @@ public class Scania extends Vehicle{
         return getEnginePower() * 0.01;
     }
 
+    // 90 km/h är maxhastighet
     @Override
     public void incrementSpeed(double amount){
-        currentSpeed = Math.min(getCurrentSpeed() + speedFactor() * amount, getEnginePower());
+        currentSpeed = Math.min(getCurrentSpeed() + speedFactor() * amount, 90);
     }
 
     @Override

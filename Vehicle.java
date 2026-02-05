@@ -41,7 +41,7 @@ public abstract class Vehicle implements Movable{
 
 
     //Konstruktor, körs när en subklass skapas
-    public vehicle(int nrDoors, double enginePower, Color color, String modelName) {
+    public Vehicle(int nrDoors, double enginePower, Color color, String modelName) {
         this.nrDoors = nrDoors;
         this.enginePower = enginePower;
         this.color = color;
