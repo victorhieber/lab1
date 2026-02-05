@@ -18,9 +18,17 @@ public class Cartransport extends Truck {
 
     @Override
     public void decrementSpeed(double amount) {
-
-
+        currentSpeed = Math.max(getCurrentSpeed() - speedFactor() * amount,0);
     }
+    /*
+    @Override
+    public void gas(double amount){
+        if (getRampAngle() > 0) return;
+        super.gas(amount);
+    }
+
+     */
 
 
 }
+
