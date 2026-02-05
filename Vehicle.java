@@ -1,6 +1,6 @@
 import java.awt.*;
 
-public abstract class car implements Movable{
+public abstract class Vehicle implements Movable{
     // PRIVATE: Dessa kan bara läsas/ändras inuti denna klass.
     private int nrDoors;
     private double enginePower;
@@ -41,7 +41,7 @@ public abstract class car implements Movable{
 
 
     //Konstruktor, körs när en subklass skapas
-    public car(int nrDoors, double enginePower, Color color, String modelName) {
+    public vehicle(int nrDoors, double enginePower, Color color, String modelName) {
         this.nrDoors = nrDoors;
         this.enginePower = enginePower;
         this.color = color;
@@ -91,7 +91,7 @@ public abstract class car implements Movable{
     //Gas och Brake är samma för båda
     public void gas(double amount){
         if (amount >= 0 && amount <= 1) {
-        incrementSpeed(amount);
+            incrementSpeed(amount);
         }
         else{
             System.out.println("Felaktigt värde");

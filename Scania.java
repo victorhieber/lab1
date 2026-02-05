@@ -1,6 +1,6 @@
 import java.awt.*;
 
-public class Scania extends car{
+public class Scania extends Vehicle{
 
     private double rampAngle = 0;
 
