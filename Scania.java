@@ -1,6 +1,9 @@
+import javax.xml.stream.events.EntityReference;
 import java.awt.*;
 
 public class Scania extends Vehicle{
+
+    private final Ramp ramp = new Ramp();
 
     private double rampAngle = 0;
 
@@ -11,20 +14,20 @@ public class Scania extends Vehicle{
     public double getRampAngle(){
         return rampAngle;
     }
-    /*
-    public void raiseRamp(double degrees){
-        if (getCurrentSpeed() != 0) return;
-        if (degrees < 0) return;
-        rampAngle = Math.min(rampAngle + degrees, 70);
+
+    public void lowerramp(){
+            if (getCurrentSpeed() == 0){
+                ramp.lower();
+            }
+        }
+    public void raiseramp(){
+        if (getCurrentSpeed() == 0){
+            ramp.raise();
+        }
     }
-     */
-    /*
-    public void lowerRamp(double degrees){
-        if (getCurrentSpeed() != 0) return;
-        if (degrees < 0) return;
-        rampAngle = Math.max(rampAngle - degrees, 0);
-    }
-    */
+
+
+
     @Override
     public void gas(double amount){
         if (getRampAngle() > 0) return;
