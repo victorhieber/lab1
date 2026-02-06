@@ -35,6 +35,9 @@ public class Cartransport extends Truck {
         if(Cargo.isfull()){
             return false;
         }
+        if (car instanceof Cartransport){
+            return false;
+        }
         boolean loaded = Cargo.addcar(car);
         if(loaded){
             car.stopEngine();

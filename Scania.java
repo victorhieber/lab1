@@ -1,4 +1,3 @@
-import javax.xml.stream.events.EntityReference;
 import java.awt.*;
 
 public class Scania extends Vehicle{
@@ -30,7 +29,7 @@ public class Scania extends Vehicle{
 
     @Override
     public void gas(double amount){
-        if (getRampAngle() > 0) return;
+        if (ramp.isup()) return;
         super.gas(amount);
     }
 

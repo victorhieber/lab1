@@ -4,17 +4,31 @@ import static org.junit.jupiter.api.Assertions.*;
 class ScaniaTest {
 
     @Test
-    void scaniaCantGasWhenBedIsUp() {
+    void scaniaRampStartsAtZero() {
         Scania scania = new Scania();
-        scania.stopEngine();     // se till att den är helt stilla
+        assertEquals(0.0, scania.getRampAngle(), 0.0001);
+    }
 
-        scania.raiseRamp(10);
-        assertEquals(10, scania.getRampAngle(), 0.0001);
+    @Test
+    void scaniaCannotRaiseRampWhileMoving() {
+        Scania scania = new Scania();
+        scania.startEngine();
+        scania.gas(1.0);
 
-        scania.startEngine();    //i car blir speed = 0.1 när man startar :
+        scania.raiseramp();
+        assertEquals(0.0, scania.getRampAngle(), 0.0001);
+    }
+
+    @Test
+    void scaniaCannotGasWhenRampIsUp() {
+        Scania scania = new Scania();
+        scania.stopEngine();
+        scania.raiseramp();
+
+        scania.startEngine();
         double before = scania.getCurrentSpeed();
+        scania.gas(1.0);
 
-        scania.gas(1.0);         // ska blockeras
         assertEquals(before, scania.getCurrentSpeed(), 0.0001);
     }
 }

@@ -1,5 +1,5 @@
 public class Ramp implements Loadplatform {
-    private boolean up = true;
+    private boolean up   = true;
 
     @Override
     public void raise(){
