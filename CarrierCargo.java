@@ -1,28 +1,31 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class CarrierCargo {
-    private final List<Vehicle> cars = new ArrayList<>();
+public class CarrierCargo<T extends Vehicle> {
+    private final List<T> vehicles = new ArrayList<>();
 
     private final int maxcars;
     public CarrierCargo(int maxcars){
         this.maxcars = maxcars;
     }
     public boolean isfull(){
-        return cars.size() >= maxcars;
+        return vehicles.size() >= maxcars;
     }
-    public boolean addcar(Vehicle car){
+    public boolean addcar(T Vehicle){
         if (isfull()) return false;
-        cars.add(car); return true;
+        vehicles.add(Vehicle); return true;
     }
-    public Vehicle unload(){
-        if(cars.isEmpty()) return null;
-        return cars.remove(cars.size() -1);
+    public T unload(){
+        if(vehicles.isEmpty()) return null;
+        return vehicles.remove(vehicles.size() -1);
     }
-    public void syncPositions(double x, double y){
-        for (Vehicle car : cars){
-            car.setPosition(x,y);
-        }
+    public void syncPositions(double x, double y) {
+     for (T vehicle : vehicles) {
+        vehicle.setPosition(x, y);
     }
+}
 
+    public int size() {
+        return vehicles.size();
+    }
 }
