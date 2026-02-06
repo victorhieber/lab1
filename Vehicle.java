@@ -68,6 +68,14 @@ public abstract class Vehicle implements Movable{
     public void setColor(Color clr){
         this.color = clr;
     }
+    public void setPosition(double x, double y){
+        this.x = x;
+        this.y = y;
+    }
+    public double getx(){return this.x;}
+    public double gety(){return this.y;}
+
+
 
     public String getModelName() {
         return this.modelName;
