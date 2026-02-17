@@ -30,6 +30,9 @@ public class CarController  {
         CarController cc = new CarController();
 
         cc.cars.add(new Volvo240());
+        cc.cars.add(new Saab95());
+        cc.cars.add(new Scania());
+        cc.cars.add(new Cartransport());
 
         // Start a new view and send a reference of self
         cc.frame = new CarView("CarSim 1.0", cc);
@@ -68,6 +71,39 @@ public class CarController  {
         for (Vehicle car : cars
             ) {
             car.brake(brake);
+        }
+    }
+
+    // CarController
+    void turboOnAllSaabs() {
+        for (Vehicle v : cars) {
+            if (v instanceof Saab95 saab) {
+                saab.setTurboOn();
+            }
+        }
+    }
+
+    void turboOffAllSaabs() {
+        for (Vehicle v : cars) {
+            if (v instanceof Saab95 saab) {
+                saab.setTurboOff();
+            }
+        }
+    }
+
+    void lowerAllScaniaBeds() {
+        for (Vehicle v : cars) {
+            if (v instanceof Scania scania) {
+                scania.lowerramp();
+            }
+        }
+    }
+
+    void liftAllScaniaBeds() {
+        for (Vehicle v : cars) {
+            if (v instanceof Scania scania) {
+                scania.raiseramp();
+            }
         }
     }
 

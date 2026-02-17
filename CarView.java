@@ -115,6 +115,36 @@ public class CarView extends JFrame{
             }
         }));
 
+        // CarView (i initComponents)
+        turboOnButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                carC.turboOnAllSaabs();
+            }
+        });
+
+        turboOffButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                carC.turboOffAllSaabs();
+            }
+        });
+
+        lowerBedButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                carC.lowerAllScaniaBeds();
+            }
+        });
+
+        liftBedButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                carC.liftAllScaniaBeds();
+            }
+        });
+
+
 
 
         // Make the frame pack all it's components by respecting the sizes if possible.
