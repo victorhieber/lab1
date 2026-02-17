@@ -75,6 +75,7 @@ public abstract class Vehicle implements Movable{
     public double getx(){return this.x;}
     public double gety(){return this.y;}
 
+
     public double distanceTO(Vehicle other){
         double dx = this.x - other.x;
         double dy = this.y - other.y;
