@@ -11,6 +11,8 @@ import java.util.ArrayList;
 
 public class CarController  {
 
+    private final VolvoWorkshop volvoWorkshop = new VolvoWorkshop(10);
+
     private final int delay = 50;
     // Timern triggar TimerListener vid varje tick.
     private Timer timer = new Timer(delay, new TimerListener());
@@ -76,6 +78,18 @@ public class CarController  {
                     car.turnLeft();
                     car.turnLeft();
                 }
+
+                // Kollision med verkstaden
+               double dx = car.getx() - frame.drawPanel.getVolvoWorkshopWidth();
+               double dy = car.gety() - frame.drawPanel.getVolvoWorkshopHeight();
+               double distance = Math.sqrt(dx * dx + dy * dy);
+               if (distance < 10 && car instanceof Volvo240) {
+                volvoWorkshop.recieveCar((Volvo240) car);
+               }
+               //Tar bort bilen när den når workshop:
+
+
+
 
                 // Synka modellens position till vyn.
                 frame.drawPanel.moveit(i, (int) Math.round(car.getx()), (int) Math.round(car.gety()));

@@ -20,7 +20,7 @@ public class DrawPanel extends JPanel{
 
     // Verkstadsbilden finns kvar från originalmallen.
     BufferedImage volvoWorkshopImage;
-    Point volvoWorkshopPoint = new Point(300,300);
+    Point volvoWorkshopPoint = new Point(300,100);
 
     // Uppdaterar position för bilen med visst index.
     void moveit(int index, int x, int y){
@@ -45,11 +45,20 @@ public class DrawPanel extends JPanel{
             carImages[0] = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/Volvo240.jpg"));
             carImages[1] = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/Saab95.jpg"));
             carImages[2] = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/Scania.jpg"));
+            volvoWorkshopImage = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/VolvoBrand.jpg"));
+
         } catch (IOException ex)
         {
             ex.printStackTrace();
         }
 
+    }
+
+    int getVolvoWorkshopWidth(){
+        return volvoWorkshopImage.getWidth();
+    }
+    int getVolvoWorkshopHeight(){
+        return volvoWorkshopImage.getHeight();
     }
 
     // Ritas om vid varje repaint() från controllern.
