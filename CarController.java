@@ -80,13 +80,14 @@ public class CarController  {
                 }
 
                 // Kollision med verkstaden
-               double dx = car.getx() - frame.drawPanel.getVolvoWorkshopWidth();
-               double dy = car.gety() - frame.drawPanel.getVolvoWorkshopHeight();
+                double dx = car.getx() - frame.drawPanel.getWorkshopX();
+               double dy = car.gety() - frame.drawPanel.getWorkshopY();
                double distance = Math.sqrt(dx * dx + dy * dy);
                if (distance < 10 && car instanceof Volvo240) {
                 volvoWorkshop.recieveCar((Volvo240) car);
+                car.stopEngine();
+                car.setPosition(300,100);
                }
-               //Tar bort bilen när den når workshop:
 
 
 

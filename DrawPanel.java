@@ -61,6 +61,15 @@ public class DrawPanel extends JPanel{
         return volvoWorkshopImage.getHeight();
     }
 
+    int getWorkshopX(){
+        return volvoWorkshopPoint.x;
+    }
+    int getWorkshopY(){
+        return volvoWorkshopPoint.y;
+    }
+
+
+
     // Ritas om vid varje repaint() från controllern.
     @Override
     protected void paintComponent(Graphics g) {
