@@ -46,14 +46,38 @@ public class CarController  {
     * */
     private class TimerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
+            
+
             for (Vehicle car : cars) {
                 car.move();
-                int x = (int) Math.round(car.getx());
-                int y = (int) Math.round(car.gety());
-                frame.drawPanel.moveit(x, y);
+                double x = car.getx();
+                double y = car.gety();
+                int panelW = frame.drawPanel.getWidth();
+                int panelH = frame.drawPanel.getHeight();
+
+                int carW = frame.drawPanel.volvoImage.getWidth();
+                int carH = frame.drawPanel.volvoImage.getHeight();
+
+                double maxX = panelW - carW;
+                double maxY = panelH - carH;
+
+                boolean hitWall = x < 0 || y < 0 || x > panelW - carW || y > panelH - carH;
+
+                if (hitWall) {
+                    double clampedX = Math.max(0, Math.min(x, maxX));
+                    double clampedY = Math.max(0, Math.min(y, maxY));
+                    car.setPosition(clampedX, clampedY);
+                    car.turnLeft();
+                    car.turnLeft();
+                }
+
+                
                 // repaint() calls the paintComponent method of the panel
-                frame.drawPanel.repaint();
+                    frame.drawPanel.moveit((int) Math.round(car.getx()), (int) Math.round(car.gety()));
+
             }
+            
+            frame.drawPanel.repaint();
         }
     }
 
