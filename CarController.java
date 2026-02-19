@@ -28,17 +28,20 @@ public class CarController  {
     public static void main(String[] args) {
         // Instance of this class
         CarController cc = new CarController();
-
-        cc.cars.add(new Volvo240());
-        cc.cars.add(new Saab95());
-        cc.cars.add(new Scania());
-        cc.cars.add(new Cartransport());
-
-        // Start a new view and send a reference of self
-        cc.frame = new CarView("CarSim 1.0", cc);
-
-        // Start the timer
-        cc.timer.start();
+        Vehicle volvo = new Volvo240();
+    Vehicle saab = new Saab95();
+    Vehicle scania = new Scania();
+    volvo.turnRight();
+    saab.turnRight();
+    scania.turnRight();
+    volvo.setPosition(0, 100);
+    saab.setPosition(0, 200);
+    scania.setPosition(0, 300);
+    cc.cars.add(volvo);
+    cc.cars.add(saab);
+    cc.cars.add(scania);
+    cc.frame = new CarView("CarSim 1.0", cc);
+    cc.timer.start();
     }
 
     /* Each step the TimerListener moves all the cars in the list and tells the
@@ -48,15 +51,17 @@ public class CarController  {
         public void actionPerformed(ActionEvent e) {
             
 
-            for (Vehicle car : cars) {
+            for (int i = 0; i < cars.size(); i++) {
+                Vehicle car = cars.get(i);
                 car.move();
+
                 double x = car.getx();
                 double y = car.gety();
+
                 int panelW = frame.drawPanel.getWidth();
                 int panelH = frame.drawPanel.getHeight();
-
-                int carW = frame.drawPanel.volvoImage.getWidth();
-                int carH = frame.drawPanel.volvoImage.getHeight();
+                int carW = frame.drawPanel.getCarWidth(i);
+                int carH = frame.drawPanel.getCarHeight(i);
 
                 double maxX = panelW - carW;
                 double maxY = panelH - carH;
@@ -73,7 +78,7 @@ public class CarController  {
 
                 
                 // repaint() calls the paintComponent method of the panel
-                    frame.drawPanel.moveit((int) Math.round(car.getx()), (int) Math.round(car.gety()));
+                    frame.drawPanel.moveit(i, (int) Math.round(car.getx()), (int) Math.round(car.gety()));
 
             }
             
@@ -131,5 +136,16 @@ public class CarController  {
         }
     }
 
+    void startAllCars() {
+        for (Vehicle v : cars) {
+            v.startEngine();
+        }
+    }
+
+    void stopAllCars() {
+        for (Vehicle v : cars) {
+            v.stopEngine();
+        }
+    }
 
 }
