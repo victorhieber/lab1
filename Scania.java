@@ -29,7 +29,7 @@ public class Scania extends Vehicle{
 
     @Override
     public void gas(double amount){
-        if (ramp.isup()) return;
+        if (ramp.isdown()) return;
         super.gas(amount);
     }
 

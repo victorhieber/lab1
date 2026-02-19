@@ -6,18 +6,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * This class represents the full view of the MVC pattern of your car simulator.
- * It initializes with being center on the screen and attaching it's controller in it's state.
- * It communicates with the Controller by calling methods of it when an action fires of in
- * each of it's components.
- * TODO: Write more actionListeners and wire the rest of the buttons
+ * Fullständig vy i MVC för bilsimulatorn.
+ * Vyn vidarebefordrar användarens knapptryckningar till CarController.
  **/
 
 public class CarView extends JFrame{
     private static final int X = 800;
     private static final int Y = 800;
 
-    // The controller member
+    // Referens till controllern som hanterar all logik.
     CarController carC;
 
     DrawPanel drawPanel = new DrawPanel(X, Y-240);
@@ -39,14 +36,13 @@ public class CarView extends JFrame{
     JButton startButton = new JButton("Start all cars");
     JButton stopButton = new JButton("Stop all cars");
 
-    // Constructor
+    // Konstruktor
     public CarView(String framename, CarController cc){
         this.carC = cc;
         initComponents(framename);
     }
 
-    // Sets everything in place and fits everything
-    // TODO: Take a good look and make sure you understand how these methods and components work
+    // Bygger hela GUI:t och kopplar alla knappar till controller-metoder.
     private void initComponents(String title) {
 
         this.setTitle(title);
@@ -99,8 +95,7 @@ public class CarView extends JFrame{
         stopButton.setPreferredSize(new Dimension(X/5-15,200));
         this.add(stopButton);
 
-        // This actionListener is for the gas button only
-        // TODO: Create more for each component as necessary
+        // Gas påverkar alla bilar via controllern.
         gasButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -108,6 +103,7 @@ public class CarView extends JFrame{
             }
         });
 
+        // Broms använder samma spinner-värde som gas.
         brakeButton.addActionListener((new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -115,7 +111,7 @@ public class CarView extends JFrame{
             }
         }));
 
-        // CarView (i initComponents)
+        // Turbo-knappar gäller endast Saab.
         turboOnButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -130,6 +126,7 @@ public class CarView extends JFrame{
             }
         });
 
+        // Flak-knappar gäller endast Scania.
         lowerBedButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -143,6 +140,8 @@ public class CarView extends JFrame{
                 carC.liftAllScaniaBeds();
             }
         });
+
+        // Start/stop gäller alla fordon i simuleringen.
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -157,16 +156,16 @@ public class CarView extends JFrame{
         });
 
 
-        // Make the frame pack all it's components by respecting the sizes if possible.
+        // Anpassa fönstret efter komponenternas preferred size.
         this.pack();
 
-        // Get the computer screen resolution
+        // Hämta skärmupplösning
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        // Center the frame
+        // Centrera fönstret
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
-        // Make the frame visible
+        // Visa fönstret
         this.setVisible(true);
-        // Make sure the frame exits when "x" is pressed
+        // Avsluta programmet när fönstret stängs
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 }

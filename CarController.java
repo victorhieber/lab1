@@ -4,53 +4,52 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 /*
-* This class represents the Controller part in the MVC pattern.
-* It's responsibilities is to listen to the View and responds in a appropriate manner by
-* modifying the model state and the updating the view.
+* Den här klassen är Controller-delen i MVC.
+* Den lyssnar på händelser från vyn, uppdaterar modellen och skickar
+* tillbaka nya positioner till vyn.
  */
 
 public class CarController  {
-    // member fields:
 
-    // The delay (ms) corresponds to 20 updates a sec (hz)
     private final int delay = 50;
-    // The timer is started with a listener (see below) that executes the statements
-    // each step between delays.
+    // Timern triggar TimerListener vid varje tick.
     private Timer timer = new Timer(delay, new TimerListener());
 
-    // The frame that represents this instance View of the MVC pattern
     CarView frame;
-    // A list of cars, modify if needed
+    // Alla fordon i simuleringen.
     ArrayList<Vehicle> cars = new ArrayList<>();
 
     //methods:
 
     public static void main(String[] args) {
-        // Instance of this class
+        // Skapa controller + de tre fordonen från labben.
         CarController cc = new CarController();
         Vehicle volvo = new Volvo240();
-    Vehicle saab = new Saab95();
-    Vehicle scania = new Scania();
-    volvo.turnRight();
-    saab.turnRight();
-    scania.turnRight();
-    volvo.setPosition(0, 100);
-    saab.setPosition(0, 200);
-    scania.setPosition(0, 300);
-    cc.cars.add(volvo);
-    cc.cars.add(saab);
-    cc.cars.add(scania);
-    cc.frame = new CarView("CarSim 1.0", cc);
-    cc.timer.start();
+        Vehicle saab = new Saab95();
+        Vehicle scania = new Scania();
+
+        // Alla startar åt höger och placeras med 100 px avstånd i Y-led.
+        volvo.turnRight();
+        saab.turnRight();
+        scania.turnRight();
+        volvo.setPosition(0, 100);
+        saab.setPosition(0, 200);
+        scania.setPosition(0, 300);
+
+        cc.cars.add(volvo);
+        cc.cars.add(saab);
+        cc.cars.add(scania);
+        cc.frame = new CarView("CarSim 1.0", cc);
+        cc.timer.start();
     }
 
-    /* Each step the TimerListener moves all the cars in the list and tells the
-    * view to update its images. Change this method to your needs.
+    /*Varje tick:
+    1 flytta alla fordon i modellen
+    2 hantera väggkollision (stanna, vänd, fortsätt)
+    3 skicka uppdaterad position till DrawPanel
     * */
     private class TimerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            
-
             for (int i = 0; i < cars.size(); i++) {
                 Vehicle car = cars.get(i);
                 car.move();
@@ -66,6 +65,8 @@ public class CarController  {
                 double maxX = panelW - carW;
                 double maxY = panelH - carH;
 
+                // Träffar bilen en kant så klampar vi positionen till panelen
+                // och inverterar riktningen (180 grader).
                 boolean hitWall = x < 0 || y < 0 || x > panelW - carW || y > panelH - carH;
 
                 if (hitWall) {
@@ -76,34 +77,32 @@ public class CarController  {
                     car.turnLeft();
                 }
 
-                
-                // repaint() calls the paintComponent method of the panel
-                    frame.drawPanel.moveit(i, (int) Math.round(car.getx()), (int) Math.round(car.gety()));
+                // Synka modellens position till vyn.
+                frame.drawPanel.moveit(i, (int) Math.round(car.getx()), (int) Math.round(car.gety()));
 
             }
-            
+
             frame.drawPanel.repaint();
         }
     }
 
-    // Calls the gas method for each car once
+    // Använder spinner-värdet som gas för alla bilar.
     void gas(int amount) {
         double gas = ((double) amount) / 100;
-       for (Vehicle car : cars
-                ) {
+       for (Vehicle car : cars) {
             car.gas(gas);
         }
     }
 
+    // Samma spinner-värde används även som broms.
     void brake(int amount){
         double brake = ((double) amount) / 100;
-        for (Vehicle car : cars
-            ) {
+        for (Vehicle car : cars) {
             car.brake(brake);
         }
     }
 
-    // CarController
+    // Turbo påverkar endast Saab.
     void turboOnAllSaabs() {
         for (Vehicle v : cars) {
             if (v instanceof Saab95 saab) {
@@ -120,6 +119,7 @@ public class CarController  {
         }
     }
 
+    // Flaket påverkar endast Scania.
     void lowerAllScaniaBeds() {
         for (Vehicle v : cars) {
             if (v instanceof Scania scania) {
@@ -136,6 +136,7 @@ public class CarController  {
         }
     }
 
+    // Start/stop gäller alla fordon i listan.
     void startAllCars() {
         for (Vehicle v : cars) {
             v.startEngine();
