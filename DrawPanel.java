@@ -18,7 +18,8 @@ public class DrawPanel extends JPanel{
         new Point(0, 200),
     };
 
-    // Verkstadsbilden finns kvar från originalmallen.
+    // Verkstadsbild + position i panelen.
+    // Pointen är ÖVRE VÄNSTRA hörnet för bilden.
     BufferedImage volvoWorkshopImage;
     Point volvoWorkshopPoint = new Point(300,100);
 
@@ -54,6 +55,7 @@ public class DrawPanel extends JPanel{
 
     }
 
+    // Bildens bredd/höjd = storlek på verkstaden (inte position).
     int getVolvoWorkshopWidth(){
         return volvoWorkshopImage.getWidth();
     }
@@ -61,6 +63,7 @@ public class DrawPanel extends JPanel{
         return volvoWorkshopImage.getHeight();
     }
 
+    // Dessa två används när controllern behöver verkstadens position.
     int getWorkshopX(){
         return volvoWorkshopPoint.x;
     }

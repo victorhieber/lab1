@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 public class CarController  {
 
+    // Volvo-verkstad som kan lagra upp till 10 Volvo-bilar.
     private final VolvoWorkshop volvoWorkshop = new VolvoWorkshop(10);
 
     private final int delay = 50;
@@ -79,11 +80,17 @@ public class CarController  {
                     car.turnLeft();
                 }
 
-                // Kollision med verkstaden
+                // "Krock" med verkstaden:
+                // Vi räknar avstånd från bilen till verkstadens position (x,y).
+                // OBS: getWorkshopX/Y är POSITION.
+                // getVolvoWorkshopWidth/Height är bara STORLEK på bilden.
                 double dx = car.getx() - frame.drawPanel.getWorkshopX();
                double dy = car.gety() - frame.drawPanel.getWorkshopY();
                double distance = Math.sqrt(dx * dx + dy * dy);
+               // Endast Volvo ska lastas in i Volvo-verkstaden.
+               // Andra bilar ignoreras av denna if-sats.
                if (distance < 10 && car instanceof Volvo240) {
+                // Lägg in bilen i verkstaden, stoppa motorn och parkera den vid verkstaden.
                 volvoWorkshop.recieveCar((Volvo240) car);
                 car.stopEngine();
                 car.setPosition(300,100);
