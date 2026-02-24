@@ -1,12 +1,14 @@
+package Tester;
+
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
 class ScaniaTest {
 
     @Test
     void scaniaRampStartsAtZero() {
         Scania scania = new Scania();
-        assertEquals(0.0, scania.getRampAngle(), 0.0001);
+        Assertions.assertEquals(0.0, scania.getRampAngle(), 0.0001);
     }
 
     @Test
@@ -16,7 +18,7 @@ class ScaniaTest {
         scania.gas(1.0);
 
         scania.raiseramp();
-        assertEquals(0.0, scania.getRampAngle(), 0.0001);
+        Assertions.assertEquals(0.0, scania.getRampAngle(), 0.0001);
     }
 
     @Test
@@ -29,6 +31,6 @@ class ScaniaTest {
         double before = scania.getCurrentSpeed();
         scania.gas(1.0);
 
-        assertEquals(before, scania.getCurrentSpeed(), 0.0001);
+        Assertions.assertEquals(before, scania.getCurrentSpeed(), 0.0001);
     }
 }

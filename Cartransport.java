@@ -1,3 +1,5 @@
+import Interfaces.Ramp;
+
 import java.awt.*;
 
 public class Cartransport extends Truck {

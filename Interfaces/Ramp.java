@@ -1,3 +1,5 @@
+package Interfaces;
+
 public class Ramp implements Loadplatform {
     private boolean up   = true;
 

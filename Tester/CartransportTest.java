@@ -1,3 +1,6 @@
+package Tester;
+
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -38,8 +41,8 @@ class CartransportTest {
         second.setPosition(0, 0);
 
         transport.lowerramp();
-        assertTrue(transport.LoadCar(first));
-        assertTrue(transport.LoadCar(second));
+        Assertions.assertTrue(transport.LoadCar(first));
+        Assertions.assertTrue(transport.LoadCar(second));
 
         Vehicle unloaded = transport.unloadcar();
         assertSame(second, unloaded);
@@ -52,15 +55,15 @@ class CartransportTest {
         car.setPosition(0, 0);
 
         transport.lowerramp();
-        assertTrue(transport.LoadCar(car));
+        Assertions.assertTrue(transport.LoadCar(car));
         transport.raiseramp();
 
         transport.startEngine();
         transport.gas(1.0);
         transport.move();
 
-        assertEquals(transport.getx(), car.getx(), 0.0001);
-        assertEquals(transport.gety(), car.gety(), 0.0001);
+        Assertions.assertEquals(transport.getx(), car.getx(), 0.0001);
+        Assertions.assertEquals(transport.gety(), car.gety(), 0.0001);
     }
 
 

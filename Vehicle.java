@@ -1,6 +1,8 @@
+import Interfaces.Movable;
+
 import java.awt.*;
 
-public abstract class Vehicle implements Movable{
+public abstract class Vehicle implements Movable {
     // PRIVATE: Dessa kan bara läsas/ändras inuti denna klass.
     private int nrDoors;
     private double enginePower;
