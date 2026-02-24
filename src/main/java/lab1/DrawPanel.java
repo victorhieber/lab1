@@ -3,6 +3,10 @@ package lab1;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
@@ -42,18 +46,41 @@ public class DrawPanel extends JPanel{
         this.setDoubleBuffered(true);
         this.setPreferredSize(new Dimension(x, y));
         this.setBackground(Color.green);
-        // Skriv fel i konsolen om bildfil saknas.
-        try {
-            carImages[0] = ImageIO.read(DrawPanel.class.getResourceAsStream("/pics/Volvo240.jpg"));
-            carImages[1] = ImageIO.read(DrawPanel.class.getResourceAsStream("/pics/Saab95.jpg"));
-            carImages[2] = ImageIO.read(DrawPanel.class.getResourceAsStream("/pics/Scania.jpg"));
-            volvoWorkshopImage = ImageIO.read(DrawPanel.class.getResourceAsStream("/pics/VolvoBrand.jpg"));
+        carImages[0] = loadImage("pics/Volvo240.jpg");
+        carImages[1] = loadImage("pics/Saab95.jpg");
+        carImages[2] = loadImage("pics/Scania.jpg");
+        volvoWorkshopImage = loadImage("pics/VolvoBrand.jpg");
+    }
 
-        } catch (IOException ex)
-        {
-            ex.printStackTrace();
+    //Ai hjälpte oss att fixa bilderna
+    private BufferedImage loadImage(String relativePath) {
+        String classpathPath = relativePath.startsWith("/") ? relativePath : "/" + relativePath;
+
+        try (InputStream stream = DrawPanel.class.getResourceAsStream(classpathPath)) {
+            if (stream != null) {
+                return ImageIO.read(stream);
+            }
+        } catch (IOException ignored) {
+            // Prova filsystemets fallback-sökvägar nedan.
         }
 
+        Path[] fallbackPaths = new Path[] {
+                Paths.get("src", "main", "resources", relativePath),
+                Paths.get(relativePath),
+                Paths.get("..", "src", "main", "resources", relativePath)
+        };
+
+        for (Path path : fallbackPaths) {
+            try {
+                if (Files.exists(path)) {
+                    return ImageIO.read(path.toFile());
+                }
+            } catch (IOException ignored) {
+                // Testa nästa sökväg.
+            }
+        }
+
+        throw new IllegalStateException("Could not load image: " + relativePath);
     }
 
     // Bildens bredd/höjd = storlek på verkstaden (inte position).
