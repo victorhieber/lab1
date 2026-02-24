@@ -1,3 +1,5 @@
+package lab1;
+
 import java.awt.*;
 
 public class Volvo240 extends Vehicle {

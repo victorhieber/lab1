@@ -1,6 +1,7 @@
+package lab1;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -43,10 +44,10 @@ public class DrawPanel extends JPanel{
         this.setBackground(Color.green);
         // Skriv fel i konsolen om bildfil saknas.
         try {
-            carImages[0] = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/Volvo240.jpg"));
-            carImages[1] = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/Saab95.jpg"));
-            carImages[2] = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/Scania.jpg"));
-            volvoWorkshopImage = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/VolvoBrand.jpg"));
+            carImages[0] = ImageIO.read(DrawPanel.class.getResourceAsStream("/pics/Volvo240.jpg"));
+            carImages[1] = ImageIO.read(DrawPanel.class.getResourceAsStream("/pics/Saab95.jpg"));
+            carImages[2] = ImageIO.read(DrawPanel.class.getResourceAsStream("/pics/Scania.jpg"));
+            volvoWorkshopImage = ImageIO.read(DrawPanel.class.getResourceAsStream("/pics/VolvoBrand.jpg"));
 
         } catch (IOException ex)
         {

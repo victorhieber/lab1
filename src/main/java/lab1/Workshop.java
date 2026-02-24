@@ -1,3 +1,5 @@
+package lab1;
+
 public class Workshop<T extends Vehicle> {
     private final CarrierCargo<T> storage; 
 

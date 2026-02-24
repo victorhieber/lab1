@@ -1,4 +1,6 @@
-import Interfaces.Ramp;
+package lab1;
+
+import lab1.interfaces.Ramp;
 
 import java.awt.*;
 

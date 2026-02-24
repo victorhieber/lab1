@@ -1,4 +1,6 @@
-import Interfaces.Movable;
+package lab1;
+
+import lab1.interfaces.Movable;
 
 import java.awt.*;
 
