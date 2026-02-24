@@ -1,7 +1,5 @@
 package lab1;
 
-import lab1.interfaces.Ramp;
-
 import java.awt.*;
 
 public class Scania extends Vehicle{

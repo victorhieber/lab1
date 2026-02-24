@@ -1,4 +1,6 @@
-package lab1.interfaces;
+package lab1;
+
+import lab1.interfaces.Loadplatform;
 
 public class Ramp implements Loadplatform {
     private boolean up   = true;
