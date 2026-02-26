@@ -1,5 +1,7 @@
 package lab1;
 
+import lab1.interfaces.SimulationView;
+
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -12,10 +14,14 @@ import java.awt.event.ActionListener;
  * Vyn vidarebefordrar användarens knapptryckningar till CarController.
  **/
 
-public class CarView extends JFrame{
+public class CarView extends JFrame implements SimulationView {
     private static final int X = 800;
     private static final int Y = 800;
 
+    @Override
+    public void render(){
+        drawPanel.repaint();
+    }
     // Referens till controllern som hanterar all logik.
     CarController carC;
 
@@ -101,7 +107,7 @@ public class CarView extends JFrame{
         gasButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                carC.gas(gasAmount);
+                carC.onGas(gasAmount);
             }
         });
 
@@ -109,7 +115,7 @@ public class CarView extends JFrame{
         brakeButton.addActionListener((new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                carC.brake(gasAmount);
+                carC.onBrake(gasAmount);
             }
         }));
 
@@ -117,14 +123,14 @@ public class CarView extends JFrame{
         turboOnButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                carC.turboOnAllSaabs();
+                carC.onTurboOn();
             }
         });
 
         turboOffButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                carC.turboOffAllSaabs();
+                carC.onTurboOff();
             }
         });
 
@@ -132,14 +138,14 @@ public class CarView extends JFrame{
         lowerBedButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                carC.lowerAllScaniaBeds();
+                carC.onLowerBeds();
             }
         });
 
         liftBedButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                carC.liftAllScaniaBeds();
+                carC.onRaiseBeds();
             }
         });
 
@@ -147,13 +153,13 @@ public class CarView extends JFrame{
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                carC.startAllCars();
+                carC.onStartAll();
             }
         });
         stopButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                carC.stopAllCars();
+                carC.onStopAll();
             }
         });
 
