@@ -1,8 +1,10 @@
 package lab1;
 
+import lab1.interfaces.TurboCapable;
+
 import java.awt.*;
 
-public class Saab95 extends Vehicle {
+public class Saab95 extends Vehicle implements TurboCapable {
     private boolean turboOn = false;
 
     public Saab95(){

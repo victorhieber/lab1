@@ -1,4 +1,33 @@
 package lab1;
 
+import lab1.interfaces.VehicleStore;
+
 public class SimulationService {
+    private final VehicleStore store;
+    private final CollisionService collisionService;
+    private final WorkshopService workshopService;
+
+    public SimulationService(
+            VehicleStore store,
+            CollisionService collisionService,
+            WorkshopService workshopService
+    ) {
+        this.store = store;
+        this.collisionService = collisionService;
+        this.workshopService = workshopService;
+    }
+
+    public void tick(){
+        //Flytta
+        //Kolla väggkrock
+        //Testa workshop recieve
+        for (Vehicle v: store.getAll()){
+            v.move();
+            collisionService.handleWalls(v);
+            workshopService.tryReceive(v);
+        }
+
+    }
 }
+
+
