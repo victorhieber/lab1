@@ -72,15 +72,6 @@ public class CarController  {
 
                 // Träffar bilen en kant så klampar vi positionen till panelen
                 // och inverterar riktningen (180 grader).
-                boolean hitWall = x < 0 || y < 0 || x > panelW - carW || y > panelH - carH;
-
-                if (hitWall) {
-                    double clampedX = Math.max(0, Math.min(x, maxX));
-                    double clampedY = Math.max(0, Math.min(y, maxY));
-                    car.setPosition(clampedX, clampedY);
-                    car.turnLeft();
-                    car.turnLeft();
-                }
 
                 // "Krock" med verkstaden:
                 // Vi räknar avstånd från bilen till verkstadens position (x,y).
@@ -90,87 +81,8 @@ public class CarController  {
                double dy = car.gety() - frame.drawPanel.getWorkshopY();
                double distance = Math.sqrt(dx * dx + dy * dy);
                // Endast Volvo ska lastas in i Volvo-verkstaden.
-               // Andra bilar ignoreras av denna if-sats.
-               if (distance < 10 && car instanceof Volvo240) {
-                // Lägg in bilen i verkstaden, stoppa motorn och parkera den vid verkstaden.
-                volvoWorkshop.recieveCar((Volvo240) car);
-                car.stopEngine();
-                car.setPosition(300,100);
-               }
-
-
-
-
-                // Synka modellens position till vyn.
-                frame.drawPanel.moveit(i, (int) Math.round(car.getx()), (int) Math.round(car.gety()));
-
-            }
-
-            frame.drawPanel.repaint();
-        }
-    }
-
-    // Använder spinner-värdet som gas för alla bilar.
-    void gas(int amount) {
-        double gas = ((double) amount) / 100;
-       for (Vehicle car : cars) {
-            car.gas(gas);
-        }
-    }
-
-    // Samma spinner-värde används även som broms.
-    void brake(int amount){
-        double brake = ((double) amount) / 100;
-        for (Vehicle car : cars) {
-            car.brake(brake);
-        }
-    }
-
-    // Turbo påverkar endast Saab.
-    void turboOnAllSaabs() {
-        for (Vehicle v : cars) {
-            if (v instanceof Saab95 saab) {
-                saab.setTurboOn();
+               // Andra bilar ignoreras av denna if-sats
             }
         }
     }
-
-    void turboOffAllSaabs() {
-        for (Vehicle v : cars) {
-            if (v instanceof Saab95 saab) {
-                saab.setTurboOff();
-            }
-        }
-    }
-
-    // Flaket påverkar endast Scania.
-    void lowerAllScaniaBeds() {
-        for (Vehicle v : cars) {
-            if (v instanceof Scania scania) {
-                scania.lowerramp();
-            }
-        }
-    }
-
-    void liftAllScaniaBeds() {
-        for (Vehicle v : cars) {
-            if (v instanceof Scania scania) {
-                scania.raiseramp();
-            }
-        }
-    }
-
-    // Start/stop gäller alla fordon i listan.
-    void startAllCars() {
-        for (Vehicle v : cars) {
-            v.startEngine();
-        }
-    }
-
-    void stopAllCars() {
-        for (Vehicle v : cars) {
-            v.stopEngine();
-        }
-    }
-
 }
