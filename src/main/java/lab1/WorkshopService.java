@@ -1,6 +1,7 @@
 package lab1;
 
-// Ansvarar endast för verkstadslogiken
+// UML: används av SimulationService (dependency).
+// Har association till Workshop<Volvo240>.
 public class WorkshopService {
     private final Workshop<Volvo240> workshop;
     private final double workshopX;

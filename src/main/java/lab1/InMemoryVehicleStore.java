@@ -7,6 +7,7 @@ import java.util.List;
 
 // Lagrar fordon i minnet (lista).
 public class InMemoryVehicleStore implements VehicleStore {
+    // UML: aggregation - store håller 0..* Vehicle.
     private final List<Vehicle> vehicles = new ArrayList<>();
 
     @Override

@@ -14,6 +14,7 @@ import java.awt.event.ActionListener;
  * Vyn vidarebefordrar användarens knapptryckningar till CarController.
  **/
 
+// UML: realisering av SimulationView.
 public class CarView extends JFrame implements SimulationView {
     private static final int X = 800;
     private static final int Y = 800;
@@ -23,8 +24,10 @@ public class CarView extends JFrame implements SimulationView {
         drawPanel.repaint();
     }
     // Referens till controllern som hanterar all logik.
+    // UML: association till controller.
     CarController carC;
 
+    // UML: komposition - DrawPanel är en del av CarView.
     DrawPanel drawPanel = new DrawPanel(X, Y-240);
 
     JPanel controlPanel = new JPanel();

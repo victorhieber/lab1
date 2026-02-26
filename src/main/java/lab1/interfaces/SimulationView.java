@@ -1,7 +1,6 @@
 package lab1.interfaces;
 
-//rendererar vyn, Controller pratar med detta interface
+// UML: CarView realiserar detta interface, CarController har association hit.
 public interface SimulationView {
     void render();
 }
-

@@ -5,9 +5,8 @@ import lab1.Vehicle;
 import java.util.ArrayList;
 import java.util.List;
 
-//Interface för vart alla fordon finns lagrade
+// UML: interface som services beror på (DIP).
 public interface VehicleStore {
     List<Vehicle> getAll();
     void add(Vehicle vehicle);
 }
-

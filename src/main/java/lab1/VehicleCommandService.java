@@ -6,6 +6,7 @@ import lab1.interfaces.VehicleStore;
 
 // Samlar alla "kommandon" mot fordon. Istället för i CarController
 public class VehicleCommandService {
+    // UML: association till VehicleStore.
     private final VehicleStore store;
 
     public VehicleCommandService(VehicleStore store) {
@@ -36,7 +37,7 @@ public class VehicleCommandService {
         }
     }
 
-    // Gäller bara fordon som implementerar TurboCapable.
+    // UML: dependency till interface TurboCapable.
     public void turboOnAll() {
         for (Vehicle v : store.getAll()) {
             if (v instanceof TurboCapable turbo) {
@@ -53,7 +54,7 @@ public class VehicleCommandService {
         }
     }
 
-    // Gäller bara fordon som implementerar BedCapable.
+    // UML: dependency till interface BedCapable.
     public void raiseBedsAll() {
         for (Vehicle v : store.getAll()) {
             if (v instanceof BedCapable bed) {

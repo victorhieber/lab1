@@ -4,6 +4,7 @@ import lab1.interfaces.BedCapable;
 
 import java.awt.*;
 
+// UML: generalisering från Vehicle + realisering av BedCapable.
 public class Scania extends Vehicle implements BedCapable {
 
     private final Ramp ramp = new Ramp();

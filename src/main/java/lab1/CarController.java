@@ -11,8 +11,11 @@ public class CarController {
     private final int delay = 50;
     private final Timer timer;
 
+    // UML: association till view-abstraktion (DIP).
     private final SimulationView view;
+    // UML: association till SimulationSerivce.
     private final SimulationService simulationService;
+    // UML: association till VehicleCommandService.
     private final VehicleCommandService commandService;
 
     public CarController(

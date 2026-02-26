@@ -4,6 +4,7 @@ import lab1.interfaces.TurboCapable;
 
 import java.awt.*;
 
+// UML: generalisering från Vehicle + realisering av TurboCapable.
 public class Saab95 extends Vehicle implements TurboCapable {
     private boolean turboOn = false;
 

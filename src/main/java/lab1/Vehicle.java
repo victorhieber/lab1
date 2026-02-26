@@ -4,6 +4,7 @@ import lab1.interfaces.Movable;
 
 import java.awt.*;
 
+// UML: realisering av Movable.
 public abstract class Vehicle implements Movable {
     // PRIVATE: Dessa kan bara läsas/ändras inuti denna klass.
     private int nrDoors;
@@ -126,5 +127,4 @@ public abstract class Vehicle implements Movable {
         }
     }
 }
-
 

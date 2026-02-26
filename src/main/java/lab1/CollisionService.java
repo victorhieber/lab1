@@ -1,7 +1,8 @@
 package lab1;
 
 
-//Hantera väggkollision här istället för i CarController
+// UML: används av SimulationService (dependency).
+// Hanterar väggkollision istället för CarController.
 public class CollisionService {
     private final double minX, minY, maxX, maxY;
 
