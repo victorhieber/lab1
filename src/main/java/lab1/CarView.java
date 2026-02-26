@@ -8,26 +8,19 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 /**
  * Fullständig vy i MVC för bilsimulatorn.
  * Vyn vidarebefordrar användarens knapptryckningar till CarController.
  **/
 
-// UML: realisering av SimulationView.
 public class CarView extends JFrame implements SimulationView {
     private static final int X = 800;
     private static final int Y = 800;
-
-    @Override
-    public void render(){
-        drawPanel.repaint();
-    }
     // Referens till controllern som hanterar all logik.
-    // UML: association till controller.
     CarController carC;
 
-    // UML: komposition - DrawPanel är en del av CarView.
     DrawPanel drawPanel = new DrawPanel(X, Y-240);
 
     JPanel controlPanel = new JPanel();
@@ -178,5 +171,14 @@ public class CarView extends JFrame implements SimulationView {
         this.setVisible(true);
         // Avsluta programmet när fönstret stängs
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+    @Override
+    public void render(List<Vehicle> vehicles) {
+        for (int i = 0; i < vehicles.size(); i++) {
+            Vehicle v = vehicles.get(i);
+            drawPanel.moveit(i, (int)Math.round(v.getx()), (int)Math.round(v.gety()));
+        }
+        drawPanel.repaint();
     }
 }

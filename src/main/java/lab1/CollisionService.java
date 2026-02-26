@@ -19,15 +19,8 @@ public class CollisionService {
         boolean hitWall = x < minX || x > maxX || y < minY || y > maxY;
         if (!hitWall) return;
 
-        // Flytta tillbaka inom rutan.
-        double clampedX = Math.max(minX, Math.min(x, maxX));
-        double clampedY = Math.max(minY, Math.min(y, maxY));
-
-        // Stanna + vänd + starta.
-        vehicle.stopEngine();
-        vehicle.setPosition(clampedX, clampedY);
+        //
         vehicle.turnLeft();
         vehicle.turnLeft();
-        vehicle.startEngine();
     }
 }

@@ -38,7 +38,8 @@ public class CarController {
         @Override
         public void actionPerformed(ActionEvent e) {
             simulationService.tick();
-            view.render();
+            view.render(simulationService.getVehicles());
+
         }
     }
 

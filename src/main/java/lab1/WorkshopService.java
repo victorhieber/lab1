@@ -1,5 +1,8 @@
 package lab1;
 
+import java.util.HashSet;
+import java.util.Set;
+
 // UML: används av SimulationService (dependency).
 // Har association till Workshop<Volvo240>.
 public class WorkshopService {
@@ -7,6 +10,7 @@ public class WorkshopService {
     private final double workshopX;
     private final double workshopY;
     private final double loadRadius;
+    private final Set<Vehicle> parkedVehicles = new HashSet<>();
 
     public WorkshopService(Workshop<Volvo240> workshop, double workshopX, double workshopY, double loadRadius) {
         this.workshop = workshop;
@@ -16,6 +20,13 @@ public class WorkshopService {
     }
 
     public void tryReceive(Vehicle vehicle) {
+        // Redan parkerad i verkstaden: håll bilen still på verkstadspositionen.
+        if (parkedVehicles.contains(vehicle)) {
+            vehicle.stopEngine();
+            vehicle.setPosition(workshopX, workshopY);
+            return;
+        }
+
         // Endast Volvo240 tas emot i denna workshop.
         if (!(vehicle instanceof Volvo240 volvo)) return;
 
@@ -26,10 +37,15 @@ public class WorkshopService {
         if (distance < loadRadius) {
             boolean loaded = workshop.recieveCar(volvo);
             if (loaded) {
+                parkedVehicles.add(volvo);
                 // Sätt bilens position samma som workshopX och worksShopY
                 volvo.stopEngine();
                 volvo.setPosition(workshopX, workshopY);
             }
         }
+    }
+
+    public boolean isParked(Vehicle vehicle) {
+        return parkedVehicles.contains(vehicle);
     }
 }

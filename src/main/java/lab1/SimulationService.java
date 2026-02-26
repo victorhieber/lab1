@@ -2,6 +2,10 @@ package lab1;
 
 import lab1.interfaces.VehicleStore;
 
+import java.util.List;
+
+
+
 public class SimulationService {
     // UML: association till store (hämtar alla fordon härifrån).
     private final VehicleStore store;
@@ -25,11 +29,18 @@ public class SimulationService {
         //Kolla väggkrock
         //Testa workshop recieve
         for (Vehicle v: store.getAll()){
+            // Parkerade bilar i verkstaden ska inte röra sig.
+            if (workshopService.isParked(v)) {
+                workshopService.tryReceive(v);
+                continue;
+            }
             v.move();
             collisionService.handleWalls(v);
             workshopService.tryReceive(v);
         }
 
     }
+    public List<Vehicle> getVehicles() {
+        return store.getAll();
+    }
 }
-
