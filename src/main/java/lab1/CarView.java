@@ -54,6 +54,7 @@ public class CarView extends JFrame implements SimulationView, SimulationObserve
         this.carC = controller;
     }
 
+    // Skyddar mot null innan controller är injicerad.
     private void withController(Consumer<CarController> action) {
         if (carC != null) {
             action.accept(carC);
@@ -205,6 +206,7 @@ public class CarView extends JFrame implements SimulationView, SimulationObserve
 
     @Override
     public void render(List<Vehicle> vehicles) {
+        // View ritar bara modelns data, ingen domänlogik här.
         drawPanel.setVehicles(vehicles);
         drawPanel.repaint();
     }

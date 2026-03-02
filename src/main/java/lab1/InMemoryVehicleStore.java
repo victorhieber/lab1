@@ -5,12 +5,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-// Lagrar fordon i minnet (lista).
+// Enkel in-memory implementation av VehicleStore.
 public class InMemoryVehicleStore implements VehicleStore {
-    // UML: aggregation - store håller 0..* Vehicle.
+    // Håller aktuell fordonsmängd.
     private final List<Vehicle> vehicles = new ArrayList<>();
     private final int maxCars;
 
+    // Standardgräns för GUI-uppgiften.
     public InMemoryVehicleStore() {
         this(10);
     }

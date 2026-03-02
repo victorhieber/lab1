@@ -12,7 +12,7 @@ import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-// Panelen ansvarar för att rita fordonens aktuella positioner.
+// Ren render-komponent: ritar fordon och workshop.
 
 public class DrawPanel extends JPanel{
 
@@ -29,6 +29,7 @@ public class DrawPanel extends JPanel{
 
     // Ger panelen aktuell model-lista att rita.
     void setVehicles(List<Vehicle> vehicles){
+        // Kopia gör att ritning inte påverkas av samtidiga liständringar.
         this.vehiclesToDraw = new ArrayList<>(vehicles);
     }
 
@@ -104,6 +105,7 @@ public class DrawPanel extends JPanel{
     }
 
     private BufferedImage imageForVehicle(Vehicle vehicle) {
+        // Exempel: Saab95 -> Saab-bilden.
         if (vehicle instanceof Volvo240) return volvoImage;
         if (vehicle instanceof Saab95) return saabImage;
         if (vehicle instanceof Scania) return scaniaImage;

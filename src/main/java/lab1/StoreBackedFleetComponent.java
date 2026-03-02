@@ -4,7 +4,8 @@ import lab1.interfaces.VehicleStore;
 
 import java.util.function.Consumer;
 
-// Composite-adapter: itererar alltid aktuella fordon i store.
+// Composite-adapter: läser alltid live-data från store.
+// Viktigt för att nytillagda bilar också ska få start/gas/brake.
 public class StoreBackedFleetComponent implements FleetComponent {
     private final VehicleStore store;
 
@@ -19,4 +20,3 @@ public class StoreBackedFleetComponent implements FleetComponent {
         }
     }
 }
-

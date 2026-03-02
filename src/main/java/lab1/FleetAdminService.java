@@ -4,7 +4,7 @@ import lab1.interfaces.VehicleStore;
 
 import java.util.Random;
 
-// Hanterar add/remove-regler för fordonsflottan.
+// Hanterar Add/Remove-regler för flottan (GUI-knapparna).
 public class FleetAdminService {
     private final VehicleStore store;
     private final VehicleFactory vehicleFactory;
@@ -21,6 +21,7 @@ public class FleetAdminService {
     }
 
     public boolean addRandomCar() {
+        // No-op när lagret är fullt.
         if (store.isFull()) {
             return false;
         }
@@ -38,6 +39,7 @@ public class FleetAdminService {
     }
 
     public boolean addGivenCar(Vehicle vehicle) {
+        // Används om ni i framtiden vill välja biltyp från t.ex. en dropdown.
         if (store.isFull()) {
             return false;
         }
@@ -45,17 +47,18 @@ public class FleetAdminService {
     }
 
     public Vehicle removeCar() {
+        // No-op när lagret är tomt.
         if (store.isEmpty()) {
             return null;
         }
+        // LIFO: tar bort senast tillagda bil.
         return store.removeLast();
     }
 
     private void initializeNewVehicle(Vehicle vehicle) {
-        // Samma riktning som ursprungliga bilar.
+        // Samma riktning som startflottan.
         vehicle.turnRight();
-        // Enkel spawn-position nära vänster kant.
+        // Exempel: 1:a nya bilen hamnar vid y=100, nästa vid y=160.
         vehicle.setPosition(0, 100 + store.size() * 60.0);
     }
 }
-

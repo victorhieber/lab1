@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-// Tunn controller: koordinerar bara flödet.
+// Tunn controller: inga regler här, bara vidarekoppling.
 public class CarController {
     private final int delay = 50;
     private final Timer timer;
@@ -41,7 +41,8 @@ public class CarController {
         timer.start();
     }
 
-    // Tick: simulera och rendera.
+    // Varje tick -> uppdatera model.
+    // View uppdateras via Observer (SimulationService -> CarView).
     private class TickListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -82,10 +83,12 @@ public class CarController {
     }
 
     public void onAddCar() {
+        // No-op hanteras i FleetAdminService om fullt.
         fleetAdminService.addRandomCar();
     }
 
     public void onRemoveCar() {
+        // No-op hanteras i FleetAdminService om tomt.
         fleetAdminService.removeCar();
     }
 }

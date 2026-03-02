@@ -4,16 +4,17 @@ import lab1.interfaces.BedCapable;
 import lab1.interfaces.TurboCapable;
 import lab1.interfaces.VehicleStore;
 
-// Samlar alla "kommandon" mot fordon. Istället för i CarController
+// Samlar alla fordonskommandon.
+// CarController skickar bara vidare till denna klass.
 public class VehicleCommandService {
     private final FleetComponent fleet;
 
-    // UML: association till Composite-roten.
+    // Kan styra en valfri FleetComponent (leaf, grupp eller store-adapter).
     public VehicleCommandService(FleetComponent fleet) {
         this.fleet = fleet;
     }
 
-    // Behålls för enkel migration från tidigare design.
+    // Kortväg: styr direkt över live-fordon i store.
     public VehicleCommandService(VehicleStore store) {
         this.fleet = new StoreBackedFleetComponent(store);
     }

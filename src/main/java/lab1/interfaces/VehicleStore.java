@@ -4,10 +4,13 @@ import lab1.Vehicle;
 
 import java.util.List;
 
-// UML: interface som services beror på (DIP).
+// Gemensamt lager-API för alla fordon i simuleringen.
 public interface VehicleStore {
+    // Read-only lista över aktuella fordon.
     List<Vehicle> getAll();
+    // Returnerar false om lagret är fullt.
     boolean add(Vehicle vehicle);
+    // Tar bort senast tillagda fordon (LIFO), null om tomt.
     Vehicle removeLast();
     int size();
     int capacity();
