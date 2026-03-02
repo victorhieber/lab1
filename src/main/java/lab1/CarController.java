@@ -1,5 +1,6 @@
 package lab1;
 
+import lab1.interfaces.SimulationObserver;
 import lab1.interfaces.SimulationView;
 
 import javax.swing.*;
@@ -27,6 +28,10 @@ public class CarController {
         this.simulationService = simulationService;
         this.commandService = commandService;
         this.timer = new Timer(delay, new TickListener());
+
+        if (view instanceof SimulationObserver observer) {
+            this.simulationService.addObserver(observer);
+        }
     }
 
     public void startTimer() {
@@ -38,8 +43,6 @@ public class CarController {
         @Override
         public void actionPerformed(ActionEvent e) {
             simulationService.tick();
-            view.render(simulationService.getVehicles());
-
         }
     }
 

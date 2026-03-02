@@ -1,27 +1,29 @@
 package lab1;
 
 import lab1.interfaces.TurboCapable;
+import lab1.state.TurboOffState;
+import lab1.state.TurboOnState;
+import lab1.state.TurboState;
 
 import java.awt.*;
 
 // UML: generalisering från Vehicle + realisering av TurboCapable.
 public class Saab95 extends Vehicle implements TurboCapable {
-    private boolean turboOn = false;
+    private TurboState turboState = new TurboOffState();
 
     public Saab95(){
         super(2, 125, Color.red, "Saab95");
     }
     public void setTurboOn(){
-        turboOn = true;
+        turboState = new TurboOnState();
     }
     public void setTurboOff(){
-        turboOn = false;
+        turboState = new TurboOffState();
     }
 
     @Override
     public double speedFactor() {
-        double turbo = turboOn ? 1.3 : 1.0;
-        return getEnginePower() * 0.01 * turbo;
+        return getEnginePower() * 0.01 * turboState.multiplier();
     }
 
     @Override

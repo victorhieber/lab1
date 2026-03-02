@@ -1,5 +1,6 @@
 package lab1;
 
+import lab1.interfaces.SimulationObserver;
 import lab1.interfaces.SimulationView;
 
 import javax.swing.*;
@@ -9,17 +10,18 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * Fullständig vy i MVC för bilsimulatorn.
  * Vyn vidarebefordrar användarens knapptryckningar till CarController.
  **/
 
-public class CarView extends JFrame implements SimulationView {
+public class CarView extends JFrame implements SimulationView, SimulationObserver {
     private static final int X = 800;
     private static final int Y = 800;
     // Referens till controllern som hanterar all logik.
-    CarController carC;
+    private CarController carC;
 
     DrawPanel drawPanel = new DrawPanel(X, Y-240);
 
@@ -44,6 +46,16 @@ public class CarView extends JFrame implements SimulationView {
     public CarView(String framename, CarController cc){
         this.carC = cc;
         initComponents(framename);
+    }
+
+    public void setController(CarController controller) {
+        this.carC = controller;
+    }
+
+    private void withController(Consumer<CarController> action) {
+        if (carC != null) {
+            action.accept(carC);
+        }
     }
 
     // Bygger hela GUI:t och kopplar alla knappar till controller-metoder.
@@ -103,7 +115,7 @@ public class CarView extends JFrame implements SimulationView {
         gasButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                carC.onGas(gasAmount);
+                withController(c -> c.onGas(gasAmount));
             }
         });
 
@@ -111,7 +123,7 @@ public class CarView extends JFrame implements SimulationView {
         brakeButton.addActionListener((new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                carC.onBrake(gasAmount);
+                withController(c -> c.onBrake(gasAmount));
             }
         }));
 
@@ -119,14 +131,14 @@ public class CarView extends JFrame implements SimulationView {
         turboOnButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                carC.onTurboOn();
+                withController(CarController::onTurboOn);
             }
         });
 
         turboOffButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                carC.onTurboOff();
+                withController(CarController::onTurboOff);
             }
         });
 
@@ -134,14 +146,14 @@ public class CarView extends JFrame implements SimulationView {
         lowerBedButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                carC.onLowerBeds();
+                withController(CarController::onLowerBeds);
             }
         });
 
         liftBedButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                carC.onRaiseBeds();
+                withController(CarController::onRaiseBeds);
             }
         });
 
@@ -149,13 +161,13 @@ public class CarView extends JFrame implements SimulationView {
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                carC.onStartAll();
+                withController(CarController::onStartAll);
             }
         });
         stopButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                carC.onStopAll();
+                withController(CarController::onStopAll);
             }
         });
 
@@ -180,5 +192,10 @@ public class CarView extends JFrame implements SimulationView {
             drawPanel.moveit(i, (int)Math.round(v.getx()), (int)Math.round(v.gety()));
         }
         drawPanel.repaint();
+    }
+
+    @Override
+    public void onSimulationUpdated(List<Vehicle> vehicles) {
+        render(vehicles);
     }
 }

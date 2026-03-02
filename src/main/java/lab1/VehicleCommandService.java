@@ -6,68 +6,69 @@ import lab1.interfaces.VehicleStore;
 
 // Samlar alla "kommandon" mot fordon. Istället för i CarController
 public class VehicleCommandService {
-    // UML: association till VehicleStore.
-    private final VehicleStore store;
+    private final FleetComponent fleet;
 
+    // UML: association till Composite-roten.
+    public VehicleCommandService(FleetComponent fleet) {
+        this.fleet = fleet;
+    }
+
+    // Behålls för enkel migration från tidigare design.
     public VehicleCommandService(VehicleStore store) {
-        this.store = store;
+        VehicleGroup group = new VehicleGroup();
+        for (Vehicle vehicle : store.getAll()) {
+            group.add(new VehicleLeaf(vehicle));
+        }
+        this.fleet = group;
     }
 
     public void gasAll(double amount) {
-        for (Vehicle v : store.getAll()) {
-            v.gas(amount);
-        }
+        fleet.forEachVehicle(v -> v.gas(amount));
     }
 
     public void brakeAll(double amount) {
-        for (Vehicle v : store.getAll()) {
-            v.brake(amount);
-        }
+        fleet.forEachVehicle(v -> v.brake(amount));
     }
 
     public void startAll() {
-        for (Vehicle v : store.getAll()) {
-            v.startEngine();
-        }
+        fleet.forEachVehicle(Vehicle::startEngine);
     }
 
     public void stopAll() {
-        for (Vehicle v : store.getAll()) {
-            v.stopEngine();
-        }
+        fleet.forEachVehicle(Vehicle::stopEngine);
     }
 
     // UML: dependency till interface TurboCapable.
     public void turboOnAll() {
-        for (Vehicle v : store.getAll()) {
+        fleet.forEachVehicle(v -> {
             if (v instanceof TurboCapable turbo) {
                 turbo.setTurboOn();
             }
-        }
+        });
     }
 
     public void turboOffAll() {
-        for (Vehicle v : store.getAll()) {
+        fleet.forEachVehicle(v -> {
             if (v instanceof TurboCapable turbo) {
                 turbo.setTurboOff();
             }
-        }
+        });
     }
 
     // UML: dependency till interface BedCapable.
     public void raiseBedsAll() {
-        for (Vehicle v : store.getAll()) {
+        fleet.forEachVehicle(v -> {
             if (v instanceof BedCapable bed) {
                 bed.raiseBed();
             }
-        }
+        });
     }
 
     public void lowerBedsAll() {
-        for (Vehicle v : store.getAll()) {
+        fleet.forEachVehicle(v -> {
             if (v instanceof BedCapable bed) {
                 bed.lowerBed();
             }
-        }
+        });
     }
 }

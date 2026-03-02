@@ -43,7 +43,7 @@ public class Scania extends Vehicle implements BedCapable {
 
     @Override
     public void gas(double amount) {
-        if (ramp.isdown()) return;
+        if (ramp.isup()) return;
         super.gas(amount);
     }
 
