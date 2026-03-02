@@ -41,6 +41,8 @@ public class CarView extends JFrame implements SimulationView, SimulationObserve
 
     JButton startButton = new JButton("Start all cars");
     JButton stopButton = new JButton("Stop all cars");
+    JButton addCarButton = new JButton("Add car");
+    JButton removeCarButton = new JButton("Remove car");
 
     // Konstruktor
     public CarView(String framename, CarController cc){
@@ -95,6 +97,8 @@ public class CarView extends JFrame implements SimulationView, SimulationObserve
         controlPanel.add(brakeButton, 3);
         controlPanel.add(turboOffButton, 4);
         controlPanel.add(lowerBedButton, 5);
+        controlPanel.add(addCarButton, 6);
+        controlPanel.add(removeCarButton, 7);
         controlPanel.setPreferredSize(new Dimension((X/2)+4, 200));
         this.add(controlPanel);
         controlPanel.setBackground(Color.CYAN);
@@ -171,6 +175,20 @@ public class CarView extends JFrame implements SimulationView, SimulationObserve
             }
         });
 
+        addCarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                withController(CarController::onAddCar);
+            }
+        });
+
+        removeCarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                withController(CarController::onRemoveCar);
+            }
+        });
+
 
         // Anpassa fönstret efter komponenternas preferred size.
         this.pack();
@@ -187,10 +205,7 @@ public class CarView extends JFrame implements SimulationView, SimulationObserve
 
     @Override
     public void render(List<Vehicle> vehicles) {
-        for (int i = 0; i < vehicles.size(); i++) {
-            Vehicle v = vehicles.get(i);
-            drawPanel.moveit(i, (int)Math.round(v.getx()), (int)Math.round(v.gety()));
-        }
+        drawPanel.setVehicles(vehicles);
         drawPanel.repaint();
     }
 

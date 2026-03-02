@@ -18,15 +18,18 @@ public class CarController {
     private final SimulationService simulationService;
     // UML: association till VehicleCommandService.
     private final VehicleCommandService commandService;
+    private final FleetAdminService fleetAdminService;
 
     public CarController(
             SimulationView view,
             SimulationService simulationService,
-            VehicleCommandService commandService
+            VehicleCommandService commandService,
+            FleetAdminService fleetAdminService
     ) {
         this.view = view;
         this.simulationService = simulationService;
         this.commandService = commandService;
+        this.fleetAdminService = fleetAdminService;
         this.timer = new Timer(delay, new TickListener());
 
         if (view instanceof SimulationObserver observer) {
@@ -76,5 +79,13 @@ public class CarController {
 
     public void onLowerBeds() {
         commandService.lowerBedsAll();
+    }
+
+    public void onAddCar() {
+        fleetAdminService.addRandomCar();
+    }
+
+    public void onRemoveCar() {
+        fleetAdminService.removeCar();
     }
 }

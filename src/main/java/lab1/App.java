@@ -11,24 +11,22 @@ public class App {
             VehicleFactory vehicleFactory = new DefaultVehicleFactory();
             List<Vehicle> fleet = vehicleFactory.createInitialFleet();
 
-            VehicleStore store = new InMemoryVehicleStore();
-            VehicleGroup fleetGroup = new VehicleGroup();
+            VehicleStore store = new InMemoryVehicleStore(10);
             for (Vehicle vehicle : fleet) {
                 store.add(vehicle);
-                fleetGroup.add(new VehicleLeaf(vehicle));
             }
 
             Workshop<Volvo240> workshop = new VolvoWorkshop(10);
             CollisionService collisionService = new CollisionService(0, 0, 800, 560);
             WorkshopService workshopService = new WorkshopService(workshop, 300, 100, 10);
             SimulationService simulationService = new SimulationService(store, collisionService, workshopService);
-            VehicleCommandService commandService = new VehicleCommandService(fleetGroup);
+            VehicleCommandService commandService = new VehicleCommandService(store);
+            FleetAdminService fleetAdminService = new FleetAdminService(store, vehicleFactory);
 
             CarView view = new CarView("CarSim 1.0", null);
-            CarController controller = new CarController(view, simulationService, commandService);
+            CarController controller = new CarController(view, simulationService, commandService, fleetAdminService);
             view.setController(controller);
             controller.startTimer();
         });
     }
 }
-

@@ -15,11 +15,7 @@ public class VehicleCommandService {
 
     // Behålls för enkel migration från tidigare design.
     public VehicleCommandService(VehicleStore store) {
-        VehicleGroup group = new VehicleGroup();
-        for (Vehicle vehicle : store.getAll()) {
-            group.add(new VehicleLeaf(vehicle));
-        }
-        this.fleet = group;
+        this.fleet = new StoreBackedFleetComponent(store);
     }
 
     public void gasAll(double amount) {

@@ -7,6 +7,8 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
@@ -15,30 +17,19 @@ import javax.swing.*;
 public class DrawPanel extends JPanel{
 
     // Bilder för Volvo, Saab och Scania.
-    BufferedImage[] carImages = new BufferedImage[3];
-    // Startpositioner i Y-led med 100 px avstånd.
-    Point[] carpoints = {
-        new Point(0, 0),
-        new Point(0, 100),
-        new Point(0, 200),
-    };
+    BufferedImage volvoImage;
+    BufferedImage saabImage;
+    BufferedImage scaniaImage;
+    private List<Vehicle> vehiclesToDraw = List.of();
 
     // Verkstadsbild + position i panelen.
     // Pointen är ÖVRE VÄNSTRA hörnet för bilden.
     BufferedImage volvoWorkshopImage;
     Point volvoWorkshopPoint = new Point(300,100);
 
-    // Uppdaterar position för bilen med visst index.
-    void moveit(int index, int x, int y){
-        carpoints[index].x = x;
-        carpoints[index].y = y;
-    }
-
-    int getCarWidth(int index){
-        return carImages[index].getWidth();
-    }
-    int getCarHeight(int index){
-        return carImages[index].getHeight();
+    // Ger panelen aktuell model-lista att rita.
+    void setVehicles(List<Vehicle> vehicles){
+        this.vehiclesToDraw = new ArrayList<>(vehicles);
     }
 
     // Initialiserar panelen och laddar in bilbilderna från pics/.
@@ -46,9 +37,9 @@ public class DrawPanel extends JPanel{
         this.setDoubleBuffered(true);
         this.setPreferredSize(new Dimension(x, y));
         this.setBackground(Color.green);
-        carImages[0] = loadImage("pics/Volvo240.jpg");
-        carImages[1] = loadImage("pics/Saab95.jpg");
-        carImages[2] = loadImage("pics/Scania.jpg");
+        volvoImage = loadImage("pics/Volvo240.jpg");
+        saabImage = loadImage("pics/Saab95.jpg");
+        scaniaImage = loadImage("pics/Scania.jpg");
         volvoWorkshopImage = loadImage("pics/VolvoBrand.jpg");
     }
 
@@ -105,9 +96,17 @@ public class DrawPanel extends JPanel{
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        for (int i = 0; i < carImages.length; i++) {
-            g.drawImage(carImages[i], carpoints[i].x, carpoints[i].y, null);
+        for (Vehicle vehicle : vehiclesToDraw) {
+            BufferedImage image = imageForVehicle(vehicle);
+            g.drawImage(image, (int) Math.round(vehicle.getx()), (int) Math.round(vehicle.gety()), null);
         }
         g.drawImage(volvoWorkshopImage, volvoWorkshopPoint.x, volvoWorkshopPoint.y, null);
+    }
+
+    private BufferedImage imageForVehicle(Vehicle vehicle) {
+        if (vehicle instanceof Volvo240) return volvoImage;
+        if (vehicle instanceof Saab95) return saabImage;
+        if (vehicle instanceof Scania) return scaniaImage;
+        return volvoImage;
     }
 }
