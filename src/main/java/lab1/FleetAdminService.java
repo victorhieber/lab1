@@ -39,7 +39,7 @@ public class FleetAdminService {
     }
 
     public boolean addGivenCar(Vehicle vehicle) {
-        // Används om ni i framtiden vill välja biltyp från t.ex. en dropdown.
+        // Används om man i framtiden vill välja biltyp från t.ex. en dropdown.
         if (store.isFull()) {
             return false;
         }
@@ -51,7 +51,7 @@ public class FleetAdminService {
         if (store.isEmpty()) {
             return null;
         }
-        // LIFO: tar bort senast tillagda bil.
+        // tar bort senast tillagda bil.
         return store.removeLast();
     }
 
