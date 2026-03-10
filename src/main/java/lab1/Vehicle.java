@@ -16,9 +16,13 @@ public abstract class Vehicle implements Movable {
     private double x = 0;
     private double y = 0;
     private int direction = 0; // 0=Nord, 1=Öst, 2=Syd, 3=Väst
+    private boolean parked = false;
 
     @Override
     public void move(){
+        if (parked) {
+            return;
+        }
         if (direction == 0)  { y += getCurrentSpeed(); }
         else if (direction == 1)  { x += getCurrentSpeed(); }
         else if (direction == 2)  { y -= getCurrentSpeed(); }
@@ -46,11 +50,17 @@ public abstract class Vehicle implements Movable {
 
 
     //Konstruktor, körs när en subklass skapas
-    public Vehicle(int nrDoors, double enginePower, Color color, String modelName) {
+    protected Vehicle(int nrDoors, double enginePower, Color color, String modelName) {
+        this(nrDoors, enginePower, color, modelName, 0, 0);
+    }
+
+    protected Vehicle(int nrDoors, double enginePower, Color color, String modelName, double x, double y) {
         this.nrDoors = nrDoors;
         this.enginePower = enginePower;
         this.color = color;
         this.modelName = modelName;
+        this.x = x;
+        this.y = y;
         this.stopEngine();
     }
     //getter för nrDoors
@@ -73,12 +83,24 @@ public abstract class Vehicle implements Movable {
     public void setColor(Color clr){
         this.color = clr;
     }
-    void setPosition(double x, double y){
+    protected final void setPosition(double x, double y){
         this.x = x;
         this.y = y;
     }
     public double getx(){return this.x;}
     public double gety(){return this.y;}
+    public boolean isParked() {
+        return parked;
+    }
+
+    public void park() {
+        parked = true;
+        stopEngine();
+    }
+
+    public void unpark() {
+        parked = false;
+    }
 
 
     public double distanceTO(Vehicle other){
@@ -100,6 +122,9 @@ public abstract class Vehicle implements Movable {
     }
     //startengine och stop engine är likadan för både saab och volvo
     public void startEngine(){
+        if (parked) {
+            return;
+        }
         currentSpeed = 0.1;
     }
 
@@ -111,6 +136,9 @@ public abstract class Vehicle implements Movable {
 
     //Gas och Brake är samma för båda
     public void gas(double amount){
+        if (parked) {
+            return;
+        }
         if (amount >= 0 && amount <= 1) {
             incrementSpeed(amount);
         }

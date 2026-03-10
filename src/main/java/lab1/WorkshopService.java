@@ -20,10 +20,9 @@ public class WorkshopService {
     }
 
     public void tryReceive(Vehicle vehicle) {
-        // Redan parkerad i verkstaden: håll bilen still på verkstadspositionen.
+        // Redan parkerad i verkstaden: bilen får inte köras iväg.
         if (parkedVehicles.contains(vehicle)) {
-            vehicle.stopEngine();
-            vehicle.setPosition(workshopX, workshopY);
+            vehicle.park();
             return;
         }
 
@@ -38,9 +37,7 @@ public class WorkshopService {
             boolean loaded = workshop.recieveCar(volvo);
             if (loaded) {
                 parkedVehicles.add(volvo);
-                // Sätt bilens position samma som workshopX och worksShopY
-                volvo.stopEngine();
-                volvo.setPosition(workshopX, workshopY);
+                volvo.park();
             }
         }
     }

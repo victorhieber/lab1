@@ -14,6 +14,10 @@ public class Scania extends Vehicle implements BedCapable {
         super(2, 500, Color.pink, "Scania");
     }
 
+    public Scania(double x, double y) {
+        super(2, 500, Color.pink, "Scania", x, y);
+    }
+
     public double getRampAngle() {
         return rampAngle;
     }

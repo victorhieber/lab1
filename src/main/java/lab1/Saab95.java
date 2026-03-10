@@ -14,6 +14,10 @@ public class Saab95 extends Vehicle implements TurboCapable {
     public Saab95(){
         super(2, 125, Color.red, "Saab95");
     }
+
+    public Saab95(double x, double y) {
+        super(2, 125, Color.red, "Saab95", x, y);
+    }
     public void setTurboOn(){
         turboState = new TurboOnState();
     }

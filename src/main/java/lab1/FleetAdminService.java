@@ -26,13 +26,14 @@ public class FleetAdminService {
             return false;
         }
         int choice = random.nextInt(3);
+        double spawnY = 100 + store.size() * 60.0;
         Vehicle vehicle;
         if (choice == 0) {
-            vehicle = vehicleFactory.createVolvo();
+            vehicle = vehicleFactory.createVolvo(0, spawnY);
         } else if (choice == 1) {
-            vehicle = vehicleFactory.createSaab();
+            vehicle = vehicleFactory.createSaab(0, spawnY);
         } else {
-            vehicle = vehicleFactory.createScania();
+            vehicle = vehicleFactory.createScania(0, spawnY);
         }
         initializeNewVehicle(vehicle);
         return addGivenCar(vehicle);
@@ -58,7 +59,5 @@ public class FleetAdminService {
     private void initializeNewVehicle(Vehicle vehicle) {
         // Samma riktning som startflottan.
         vehicle.turnRight();
-        // Exempel: 1:a nya bilen hamnar vid y=100, nästa vid y=160.
-        vehicle.setPosition(0, 100 + store.size() * 60.0);
     }
 }
